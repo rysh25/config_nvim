@@ -54,3 +54,25 @@ vim.api.nvim_create_autocmd("VimEnter", {
     once = true,
 })
 
+
+-- LSP key bindings
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+  callback = function(ev)
+    -- 保存時に自動フォーマット
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      pattern = { "*.rs", "*.py", "*.ts" },
+      callback = function()
+        vim.lsp.buf.format({
+          buffer = ev.buf,
+          filter = function(f_client)
+            -- TypeScriptのようにNode.js, Deno, Bunのどれを使うかによって、
+            -- none-ls (Biome, Prettier) の有無が変わる場合、none-ls の複数回実行を防止するため
+            return f_client.name ~= "null-ls"
+          end,
+          async = false,
+        })
+      end,
+    })
+  end,
+})
