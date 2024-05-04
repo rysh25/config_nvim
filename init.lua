@@ -37,3 +37,20 @@ require "nvchad.autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+
+
+vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+        -- 開いているファイルまたはディレクトリのパスを取得
+        local path = vim.fn.argv(0)
+        if vim.fn.isdirectory(path) == 1 then
+            -- ディレクトリの場合、そのディレクトリをカレントディレクトリに設定
+            vim.cmd('cd ' .. path)
+        else
+            -- ファイルの場合、そのファイルの親ディレクトリをカレントディレクトリに設定
+            vim.cmd('cd ' .. vim.fn.fnamemodify(path, ':p:h'))
+        end
+    end,
+    once = true,
+})
+
