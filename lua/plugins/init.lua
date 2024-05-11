@@ -15,6 +15,13 @@ return {
       require "configs.lspconfig"
     end,
   },
+  {
+    "nvimtools/none-ls.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      require "configs.null-ls"
+    end,
+  }
   --
   -- {
   -- 	"williamboman/mason.nvim",

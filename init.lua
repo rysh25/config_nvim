@@ -61,7 +61,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     -- 保存時に自動フォーマット
     vim.api.nvim_create_autocmd("BufWritePre", {
-      pattern = { "*.rs", "*.py", "*.ts" },
+      pattern = { "*.rs", "*.py", "*.ts", "*.go" },
       callback = function()
         vim.lsp.buf.format({
           buffer = ev.buf,
@@ -76,3 +76,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
     })
   end,
 })
+
