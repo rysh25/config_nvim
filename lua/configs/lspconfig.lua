@@ -5,7 +5,7 @@ local capabilities = require("nvchad.configs.lspconfig").capabilities
 
 local lspconfig = require "lspconfig"
 local util = require "lspconfig/util"
-local servers = { "html", "cssls", "gopls" }
+local servers = { "html", "cssls", "gopls", "clangd" }
 
 lspconfig.rust_analyzer.setup({
   settings = {
@@ -52,3 +52,10 @@ lspconfig.gopls.setup {
   },
 }
 
+
+-- clangd
+lspconfig.clangd.setup {
+  init_options = {
+    fallbackFlags = {'--std=c++20'}
+  }
+}
