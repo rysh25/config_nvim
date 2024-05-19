@@ -46,6 +46,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
         if vim.fn.isdirectory(path) == 1 then
             -- ディレクトリの場合、そのディレクトリをカレントディレクトリに設定
             vim.cmd('cd ' .. path)
+            require('nvim-tree.api').tree.open()
         else
             -- ファイルの場合、そのファイルの親ディレクトリをカレントディレクトリに設定
             vim.cmd('cd ' .. vim.fn.fnamemodify(path, ':p:h'))
