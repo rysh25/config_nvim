@@ -42,11 +42,13 @@ vim.api.nvim_create_autocmd("CursorHold", {
 local function set_keymap(client, buffer)
   local keymap_opts = { buffer = buffer }
 
-  vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
+  vim.keymap.set("n", "ga", vim.lsp.buf.code_action,  { desc = "Code action", buffer = buffer })
 
   -- Goto previous/next diagnostic warning/error
-  vim.keymap.set("n", "g[", vim.diagnostic.goto_prev, keymap_opts)
-  vim.keymap.set("n", "g]", vim.diagnostic.goto_next, keymap_opts)
+  vim.keymap.set("n", "g[", vim.diagnostic.goto_prev,  { desc = "Previous diagnostic warning/error", buffer = buffer })
+  vim.keymap.set("n", "g]", vim.diagnostic.goto_next,  { desc = "Next diagnostic warning/error", buffer = buffer })
+
+  vim.keymap.set("n", '<C-i>', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end, keymap_opts)
 end
 
 local function on_attach(client, buffer)
